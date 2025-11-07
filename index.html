@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンライン LZH 解凍ツール</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗜️ オンライン LZH 解凍ツール</h1>
+            <p class="subtitle">ブラウザだけでLZHファイルを解凍できます（サーバー不要）</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <p class="drop-text">LZHファイルをドラッグ&ドロップ</p>
+                    <p class="drop-subtext">または</p>
+                    <button class="btn-select" id="selectBtn">ファイルを選択</button>
+                    <input type="file" id="fileInput" accept=".lzh,.lha" hidden>
+                </div>
+            </div>
+
+            <div class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText">処理中...</p>
+            </div>
+
+            <div class="error-section" id="errorSection" style="display: none;">
+                <div class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <span id="errorText"></span>
+                </div>
+            </div>
+
+            <div class="files-section" id="filesSection" style="display: none;">
+                <h2>📁 解凍されたファイル</h2>
+                <div class="toolbar">
+                    <button class="btn-secondary" id="downloadAllBtn">すべてダウンロード (ZIP)</button>
+                    <span class="file-count" id="fileCount"></span>
+                </div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>⚠️ このツールはブラウザ上で動作し、ファイルはサーバーにアップロードされません</p>
+            <p class="small-text">LZH/LHA形式対応 | プライバシー保護</p>
+        </footer>
+    </div>
+
+    <!-- LHA解凍ライブラリ (stdio + UnLZH) -->
+    <script src="stdio.js"></script>
+    <script>
+        // stdio関数をグローバルスコープに公開
+        var fopen = stdio.fopen;
+        var fclose = stdio.fclose;
+        var fprintf = stdio.fprintf;
+        var getchar = stdio.getchar;
+        var stdout = stdio.stdout;
+        var stderr = stdio.stderr;
+    </script>
+    <script src="unlzh.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
